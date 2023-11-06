@@ -1,7 +1,7 @@
 <?php
   require_once("templates/header.php");
 
-  require_once("dao/MovieDAO.php");
+  require_once("models/dao/MovieDAO.php");
 
   // DAO dos filmes
   $movieDao = new MovieDAO($conn, $BASE_URL);

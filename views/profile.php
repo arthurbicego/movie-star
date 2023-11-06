@@ -3,8 +3,8 @@
 
   // Verifica se usuário está autenticado
   require_once("models/User.php");
-  require_once("dao/UserDAO.php");
-  require_once("dao/MovieDAO.php");
+  require_once("models/dao/UserDAO.php");
+  require_once("models/dao/MovieDAO.php");
 
   $user = new User();
   $userDao = new UserDAO($conn, $BASE_URL);

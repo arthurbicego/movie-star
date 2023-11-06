@@ -3,8 +3,8 @@
 
   // Verifica se usuário está autenticado
   require_once("models/Movie.php");
-  require_once("dao/MovieDAO.php");
-  require_once("dao/ReviewDAO.php");
+  require_once("models/dao/MovieDAO.php");
+  require_once("models/dao/ReviewDAO.php");
 
   // Pegar o id do filme
   $id = filter_input(INPUT_GET, "id");
