@@ -18,7 +18,7 @@ $comedyMovies = $movieDao->getMoviesByCategory("Comédia");
 ?>
 <div id="main-container" class="container-fluid">
   <h2 class="section-title">Filmes novos</h2>
-  <p class="section-description">Veja as críticas dos últimos filmes adicionados no MovieStar</p>
+  <p class="section-description">Veja as críticas dos últimos filmes adicionados no Movie Star</p>
   <div class="movies-container">
     <?php foreach ($latestMovies as $movie) : ?>
       <?php require("views/templates/movie_card.php"); ?>

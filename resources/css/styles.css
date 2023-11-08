@@ -9,10 +9,7 @@
 
 #moviestar-title {
   color: #fff;
-  position: absolute;
-  bottom: -2px;
   font-size: 30px;
-  left: 55px;
   font-weight: bold;
 }
 
@@ -91,7 +88,7 @@
 
 .section-title {
   font-size: 24px;
-  border-left: 4px solid #f5c518;
+  border-left: 4px solid #f74043;
   padding-left: 12px;
   margin-top: 20px;
 }
@@ -141,7 +138,7 @@
 
 .rate-btn {
   margin-bottom: 15px;
-  color: #5799ef;
+  color: #f5c518;
   background-color: #333;
   border-color: #333;
   width: 100%;
@@ -168,7 +165,7 @@
 #login-container h2,
 #register-container h2 {
   text-align: center;
-  border-bottom: 2px solid #f5c518;
+  border-bottom: 2px solid #ff1f23;
   width: 200px;
   margin: 0 auto;
   padding: 10px;
@@ -182,15 +179,15 @@
 
 .card-btn {
   color: #000;
-  background-color: #f5c518;
-  border: 2px solid #f5c518;
+  background-color: #ff1f23;
+  border: 2px solid #ff1f23;
   width: 100%;
 }
 
 .card-btn:hover {
   background-color: transparent;
-  color: #f5c518;
-  border-color: #f5c518;
+  color: #ff1f23;
+  border-color: #ff1f23;
 }
 
 /* Edit Profile */
@@ -198,7 +195,7 @@
 .profile-image-container {
   width: 150px;
   height: 150px;
-  border: 6px solid #f5c518;
+  border: 6px solid #ff1f23;
   border-radius: 100%;
   background-size: cover;
   background-position: center;
@@ -293,7 +290,7 @@
 .page-title:after {
   content: "";
   width: 300px;
-  border-bottom: 2px solid #f5c518;
+  border-bottom: 2px solid #ff1f23;
   display: block;
   margin: 0 auto;
   padding-top: 7px;
@@ -330,7 +327,7 @@
 #reviews-container {
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 4px solid #f5c518;
+  border-top: 4px solid #ff1f23;
 }
 
 .review {
@@ -343,7 +340,7 @@
 }
 
 .author-name a {
-  color: #f5c518;
+  color: #ff1f23;
 }
 
 .comment-title {
@@ -374,7 +371,7 @@
 }
 
 .table-movie-title:hover {
-  color: #f5c518;
+  color: #ff1f23;
 }
 
 .actions-column {
@@ -397,13 +394,13 @@
 }
 
 .edit-btn {
-  background-color: #0dcaf0;
+  background-color: #f5c518;
   color: #fff;
 }
 
 .edit-btn:hover {
   background-color: transparent;
-  color: #0dcaf0;
+  color: #f5c518;
   text-decoration: none;
 }
 
@@ -425,7 +422,7 @@
 
 #search-result,
 .back-link {
-  color: #f5c518;
+  color: #ff1f23;
 }
 
 /* Footer */
@@ -564,6 +561,6 @@
   }
 
   .fas.fa-bars {
-    color: #f5c518;
+    color: #ff1f23;
   }
 }

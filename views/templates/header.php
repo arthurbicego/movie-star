@@ -27,8 +27,8 @@ $userData = $userDao->verifyToken(false);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MovieStar</title>
-  <link rel="short icon" href="<?php echo $BASE_URL ?>resources/img/moviestar.ico" />
+  <title>Movie Star</title>
+  <link rel="short icon" href="<?php echo $BASE_URL ?>resources/img/logo.png" />
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.css" integrity="sha512-drnvWxqfgcU6sLzAJttJv7LKdjWn0nxWCSbEAtxJ/YYaZMyoNLovG7lPqZRdhgL1gAUfa+V7tbin8y+2llC1cw==" crossorigin="anonymous" />
   <!-- Font Awesome -->
@@ -41,8 +41,8 @@ $userData = $userDao->verifyToken(false);
   <header>
     <nav id="main-navbar" class="navbar navbar-expand-lg">
       <a href="<?php echo $BASE_URL ?>" class="navbar-brand">
-        <img src="<?php echo $BASE_URL ?>resources/img/logo.svg" alt="MovieStar" id="logo">
-        <span id="moviestar-title">MovieStar</span>
+        <img src="<?php echo $BASE_URL ?>resources/img/logo.png" alt="Movie Star" id="logo">
+        <span id="moviestar-title">Movie Star</span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars"></i>
