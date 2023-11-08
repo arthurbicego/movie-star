@@ -1,6 +1,6 @@
 <?php
 
-$__ROOT__ = __DIR__;
+$__ROOT__ = dirname(__DIR__);
 
 require_once($__ROOT__ . "/views/templates/header.php");
 require($__ROOT__ . "/controllers/AuthController.php");
