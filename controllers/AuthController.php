@@ -21,8 +21,8 @@ class AuthController {
   private $userDao;
   private $passwordController;
 
-  public function __construct($conn, $BASE_URL, $type, $name, $lastname, $email, $password, $password_confirmation) {
-    $this->type = $type;
+  public function __construct($conn, $BASE_URL, $authType, $name, $lastname, $email, $password, $password_confirmation) {
+    $this->type = $authType;
     $this->name = $name;
     $this->lastname = $lastname;
     $this->email = $email;

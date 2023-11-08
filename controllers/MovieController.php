@@ -8,188 +8,105 @@ $__ROOT__ = dirname(__DIR__);
   require_once($__ROOT__ . "/models/Message.php");
   require_once($__ROOT__ . "/models/dao/UserDAO.php");
   require_once($__ROOT__ . "/models/dao/MovieDAO.php");
-
-  $message = new Message($BASE_URL);
-  $userDao = new UserDAO($conn, $BASE_URL);
-  $movieDao = new MovieDAO($conn, $BASE_URL);
-
-  // Resgata o tipo do formulário
-  $type = filter_input(INPUT_POST, "type");
-
-  // Resgata dados do usuário
-  $userData = $userDao->verifyToken();
-
-  if($type === "create") {
-
-    // Receber os dados dos inputs
-    $title = filter_input(INPUT_POST, "title");
-    $description = filter_input(INPUT_POST, "description");
-    $trailer = filter_input(INPUT_POST, "trailer");
-    $category = filter_input(INPUT_POST, "category");
-    $length = filter_input(INPUT_POST, "length");
-
-    $movie = new Movie();
-
-    // Validação mínima de dados
-    if(!empty($title) && !empty($description) && !empty($category)) {
-
-      $movie->title = $title;
-      $movie->description = $description;
-      $movie->trailer = $trailer;
-      $movie->category = $category;
-      $movie->length = $length;
-      $movie->users_id = $userData->id;
-
-      // Upload de imagem do filme
-      if(isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
-
-        $image = $_FILES["image"];
-        $imageTypes = ["image/jpeg", "image/jpg", "image/png"];
-        $jpgArray = ["image/jpeg", "image/jpg"];
-
-        // Checando tipo da imagem
-        if(in_array($image["type"], $imageTypes)) {
-
-          // Checa se imagem é jpg
-          if(in_array($image["type"], $jpgArray)) {
-            $imageFile = imagecreatefromjpeg($image["tmp_name"]);
-          } else {
-            $imageFile = imagecreatefrompng($image["tmp_name"]);
-          }
-
-          // Gerando o nome da imagem
-          $imageName = $movie->imageGenerateName();
-
-          imagejpeg($imageFile, "../resources/img/movies/" . $imageName, 100);
-
-          $movie->image = $imageName;
-
-        } else {
-
-          $message->setMessage("Tipo inválido de imagem, insira png ou jpg!", "error", "back");
-
-        }
-
-      }
-
-      $movieDao->create($movie);
-
-    } else {
-
-      $message->setMessage("Você precisa adicionar pelo menos: título, descrição e categoria!", "error", "back");
-
-    }
-
-  } else if($type === "delete") {
-
-    // Recebe os dados do form
-    $id = filter_input(INPUT_POST, "id");
-
-    $movie = $movieDao->findById($id);
-
-    if($movie) {
-
-      // Verificar se o filme é do usuário
-      if($movie->users_id === $userData->id) {
-
-        $movieDao->destroy($movie->id);
-
-      } else {
-
-        $message->setMessage("Informações inválidas!", "error", "index.php");
-
-      }
-
-    } else {
-
-      $message->setMessage("Informações inválidas!", "error", "index.php");
-
-    }
-
-  } else if($type === "update") { 
-
-    // Receber os dados dos inputs
-    $title = filter_input(INPUT_POST, "title");
-    $description = filter_input(INPUT_POST, "description");
-    $trailer = filter_input(INPUT_POST, "trailer");
-    $category = filter_input(INPUT_POST, "category");
-    $length = filter_input(INPUT_POST, "length");
-    $id = filter_input(INPUT_POST, "id");
-
-    $movieData = $movieDao->findById($id);
-
-    // Verifica se encontrou o filme
-    if($movieData) {
-
-      // Verificar se o filme é do usuário
-      if($movieData->users_id === $userData->id) {
-
-        // Validação mínima de dados
-        if(!empty($title) && !empty($description) && !empty($category)) {
-
-          // Edição do filme
-          $movieData->title = $title;
-          $movieData->description = $description;
-          $movieData->trailer = $trailer;
-          $movieData->category = $category;
-          $movieData->length = $length;
-
-          // Upload de imagem do filme
-          if(isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
-
-            $image = $_FILES["image"];
-            $imageTypes = ["image/jpeg", "image/jpg", "image/png"];
-            $jpgArray = ["image/jpeg", "image/jpg"];
-
-            // Checando tipo da imagem
-            if(in_array($image["type"], $imageTypes)) {
-
-              // Checa se imagem é jpg
-              if(in_array($image["type"], $jpgArray)) {
-                $imageFile = imagecreatefromjpeg($image["tmp_name"]);
-              } else {
-                $imageFile = imagecreatefrompng($image["tmp_name"]);
-              }
-
-              // Gerando o nome da imagem
-              $movie = new Movie();
-
-              $imageName = $movie->imageGenerateName();
-
-              imagejpeg($imageFile, "../resources/img/movies/" . $imageName, 100);
-
-              $movieData->image = $imageName;
-
-            } else {
-
-              $message->setMessage("Tipo inválido de imagem, insira png ou jpg!", "error", "back");
-
-            }
-
-          }
-
-          $movieDao->update($movieData);
-
-        } else {
-
-          $message->setMessage("Você precisa adicionar pelo menos: título, descrição e categoria!", "error", "back");
-
-        }
-
-      } else {
-
-        $message->setMessage("Informações inválidas!", "error", "index.php");
-
-      }
-
-    } else {
-
-      $message->setMessage("Informações inválidas!", "error", "index.php");
-
-    }
-  
-  } else {
-
-    $message->setMessage("Informações inválidas!", "error", "index.php");
-
+  require_once($__ROOT__ . "/controllers/ImageController.php");
+
+class MovieController {
+
+  private $id;
+  private $type;
+  private $title;
+  private $description;
+  private $trailer;
+  private $category;
+  private $length;
+
+  private $message;
+  private $userDao;
+  private $userData;
+
+  private $movie;
+  private $movieDao;
+
+  private $imageController;
+
+  public function __construct($conn, $BASE_URL, $id, $movieType, $title, $description, $trailer, $category, $length) {
+    $this->id = $id;
+    $this->type = $movieType;
+    $this->title = $title;
+    $this->description = $description;
+    $this->trailer = $trailer;
+    $this->category = $category;
+    $this->length = $length;
+
+    $this->movie = new Movie();
+    $this->message = new Message($BASE_URL);
+
+    $this->userDao = new UserDAO($conn, $BASE_URL);
+    $this->userData = $this->userDao->verifyToken();
+    $this->movieDao = new MovieDAO($conn, $BASE_URL);
+    
+    $this->imageController = new ImageController($_FILES["image"], $BASE_URL);
   }
+
+
+  public function verifyFormsType() {
+    if($this->type === "create") {
+      $this->verifyInput();
+      $this->imageController->verifyImageUpload();
+      $this->movieDao->create($this->movie);
+
+    } else if ($this->type === "delete") {
+      if ($this->verifyMovieFound() && $this->verifyMovieUser()) {
+        $this->movieDao->destroy($this->movie->id);
+      } else {
+        $this->message->setMessage("Informações inválidas!", "error", "index.php");
+      }
+
+    } else if ($this->type === "update") {
+      if ($this->verifyMovieFound() && $this->verifyMovieUser()) {
+        $this->verifyInput();
+        $this->imageController->verifyImageUpload();
+        $this->movieDao->update($this->movie);
+      } else {
+        $this->message->setMessage("Informações inválidas!", "error", "index.php");
+      }
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------
+
+  private function verifyInput(){
+    if(!empty($this->title) && !empty($this->description) && !empty($this->category)) {
+      $this->movie->title = $this->title;
+      $this->movie->description = $this->description;
+      $this->movie->trailer = $this->trailer;
+      $this->movie->category = $this->category;
+      $this->movie->length = $this->length;
+      // I need to understand where this userData id comes from
+      $this->movie->users_id = $this->userData->id;
+
+    } else {
+      $this->message->setMessage("Você precisa adicionar pelo menos: título, descrição e categoria!", "error", "back");
+    }
+  }
+
+  // ---------------------------------------------------------------------------------------
+  
+  private function verifyMovieFound() {
+    if ($this->movieDao->findById($this->id)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  private function verifyMovieUser(){
+    if($this->movie->users_id === $this->userData->id) {
+      return true;
+      
+    } else {
+      return false;
+    }
+  }
+
+}
