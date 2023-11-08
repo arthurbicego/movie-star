@@ -6,6 +6,7 @@ require_once($__ROOT__ . "/views/templates/header.php");
 require($__ROOT__ . "/controllers/AuthController.php");
 require($__ROOT__ . "/controllers/MovieController.php");
 require($__ROOT__ . "/controllers/UserController.php");
+require($__ROOT__ . "/controllers/ReviewController.php");
 
 // AuthController
 $authType = filter_input(INPUT_POST, "authType");
@@ -33,6 +34,12 @@ $bio = filter_input(INPUT_POST, "bio");
 // $password = filter_input(INPUT_POST, "password");
 // $password_confirmation = filter_input(INPUT_POST, "password_confirmation");
 
+// ReviewController
+$reviewType = filter_input(INPUT_POST, "reviewType");
+$rating = filter_input(INPUT_POST, "rating");
+$review = filter_input(INPUT_POST, "review");
+$movies_id = filter_input(INPUT_POST, "movies_id");
+
 if($authType) {
 
     $authController = new AuthController($conn, $BASE_URL, $authType, $name, $lastname, $email, $password, $password_confirmation);
@@ -47,5 +54,10 @@ if($authType) {
 
     $userController = new UserController($conn, $BASE_URL, $userType, $name, $lastname, $email, $bio, $password, $password_confirmation);
     $userController->verifyFormsType();
+
+} else if  ($reviewType) {
+
+    $reviewController = new ReviewController($conn, $BASE_URL, $url, $reviewType, $rating, $rating, $movies_id);
+    $reviewController->verifyFormsType();
 
 }

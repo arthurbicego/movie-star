@@ -2,65 +2,74 @@
 
 $__ROOT__ = dirname(__DIR__);
 
-  require_once($__ROOT__ . "/globals.php");
-  require_once($__ROOT__ . "/database.php");
-  require_once($__ROOT__ . "/models/Movie.php");
-  require_once($__ROOT__ . "/models/Review.php");
-  require_once($__ROOT__ . "/models/Message.php");
-  require_once($__ROOT__ . "/models/dao/UserDAO.php");
-  require_once($__ROOT__ . "/models/dao/MovieDAO.php");
-  require_once($__ROOT__ . "/models/dao/ReviewDAO.php");
+  require_once($__ROOT__ . "globals.php");
+  require_once($__ROOT__ . "db.php");
+  require_once($__ROOT__ . "models/Movie.php");
+  require_once($__ROOT__ . "models/Review.php");
+  require_once($__ROOT__ . "models/Message.php");
+  require_once($__ROOT__ . "models/dao/UserDAO.php");
+  require_once($__ROOT__ . "models/dao/MovieDAO.php");
+  require_once($__ROOT__ . "models/dao/ReviewDAO.php");
 
-  $message = new Message($BASE_URL);
-  $userDao = new UserDAO($conn, $BASE_URL);
-  $movieDao = new MovieDAO($conn, $BASE_URL);
-  $reviewDao = new ReviewDAO($conn, $BASE_URL);
+class ReviewController {
 
-  // Recebendo o tipo do formulário
-  $type = filter_input(INPUT_POST, "type");
+  private $id;
+  private $message;
+  private $userDao;
+  private $movieDao;
+  private $reviewDao;
+  private $reviewObject;
+  private $type;
+  private $userData;
+  private $rating;
+  private $review;
+  private $movies_id;
+  private $users_id;
 
-  // Resgata dados do usuário
-  $userData = $userDao->verifyToken();
 
-  if($type === "create") {
+  public function __construct($conn, $BASE_URL, $url, $reviewType, $rating, $review, $movies_id) {
+    $this->message = new Message($url);
+    $this->userDao = new UserDAO($conn, $BASE_URL);
+    $this->movieDao = new MovieDAO($conn, $BASE_URL);
+    $this->reviewDao = new ReviewDAO($conn, $BASE_URL);
+    $this->reviewObject = new Review();
+    $this->userData = $this->userDao->verifyToken();
+    $this->type = $reviewType;
+    $this->rating = $rating;
+    $this->review = $review;
+    $this->movies_id = $movies_id;
+    $this->users_id = $this->userData->id;
+  }
 
-    // Recebendo dados do post
-    $rating = filter_input(INPUT_POST, "rating");
-    $review = filter_input(INPUT_POST, "review");
-    $movies_id = filter_input(INPUT_POST, "movies_id");
-    $users_id = $userData->id;
-
-    $reviewObject = new Review();
-
-    $movieData = $movieDao->findById($movies_id);
-
-    // Validando se o filme existe
-    if($movieData) {
-
-      // Verificar dados mínimos
-      if(!empty($rating) && !empty($review) && !empty($movies_id)) {
-
-        $reviewObject->rating = $rating;
-        $reviewObject->review = $review;
-        $reviewObject->movies_id = $movies_id;
-        $reviewObject->users_id = $users_id;
-
-        $reviewDao->create($reviewObject);
-
+  public function verifyFormsType() {
+    if($this->type === "create") {
+      if($this->verifyMovieFound()) {
+        $this->verifyInput();
+        $this->reviewDao->create($this->reviewObject);
       } else {
-
-        $message->setMessage("Você precisa inserir a nota e o comentário!", "error", "back");
-
+        $this->message->setMessage("Informações inválidas!", "error", "index.php");
       }
-
     } else {
-
-      $message->setMessage("Informações inválidas!", "error", "index.php");
-
+        $this->message->setMessage("Informações inválidas!", "error", "index.php");
+      }
     }
 
-  } else {
+  private function verifyInput() {
+      if(!empty($this->rating) && !empty($this->review) && !empty($this->movies_id)) {
+        $this->reviewObject->rating = $this->rating;
+        $this->reviewObject->review = $this->review;
+        $this->reviewObject->movies_id = $this->movies_id;
+        $this->reviewObject->users_id = $this->users_id;
+      }
+    }
+  
 
-    $message->setMessage("Informações inválidas!", "error", "index.php");
-
+  private function verifyMovieFound() {
+    if ($this->movieDao->findById($this->movies_id)) {
+      return true;
+    } else {
+      return false;
+    }
   }
+
+}

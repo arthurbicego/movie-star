@@ -11,7 +11,7 @@ $__ROOT__ = dirname(__DIR__);
       <div class="row" id="auth-row">
         <div class="col-md-4" id="login-container">
           <h2>Entrar</h2>
-          <form action="<?php echo $BASE_URL ?>FormController.php" method="POST">
+          <form action="<?php echo $BASE_URL ?>controllers/FormController.php" method="POST">
             <input type="hidden" name="authType" value="login">
             <div class="form-group">
               <label for="email">E-mail:</label>
@@ -26,7 +26,7 @@ $__ROOT__ = dirname(__DIR__);
         </div>
         <div class="col-md-4" id="register-container">
           <h2>Criar Conta</h2>
-          <form action="<?php echo $BASE_URL ?>FormController.php" method="POST">
+          <form action="<?php echo $BASE_URL ?>controllers/FormController.php" method="POST">
             <input type="hidden" name="authType" value="register">
             <div class="form-group">
               <label for="email">E-mail:</label>

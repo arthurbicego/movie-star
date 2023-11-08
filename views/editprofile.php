@@ -4,7 +4,7 @@ $__ROOT__ = dirname(__DIR__);
   require_once($__ROOT__ . "/views/templates/header.php");
 
   require_once($__ROOT__ . "/models/dao/UserDAO.php");
-  require_once($__ROOT__ . "/FormController.php");
+  require_once($__ROOT__ . "/controllers/FormController.php");
 
   $user = new User();
   $userDao = new UserDao($conn, $BASE_URL);
@@ -20,7 +20,7 @@ $__ROOT__ = dirname(__DIR__);
 ?>
   <div id="main-container" class="container-fluid edit-profile-page">
     <div class="col-md-12">
-      <form action="<?php echo $BASE_URL ?>FormController.php" method="POST" enctype="multipart/form-data">
+      <form action="<?php echo $BASE_URL ?>controllers/FormController.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="userType" value="update">
         <div class="row">
           <div class="col-md-4">
@@ -57,7 +57,7 @@ $__ROOT__ = dirname(__DIR__);
         <div class="col-md-4">
           <h2>Alterar a senha:</h2>
           <p class="page-description">Digite a nova senha e confirme, para alterar sua senha:</p>
-          <form action="<?php echo $BASE_URL ?>FormController.php" method="POST">
+          <form action="<?php echo $BASE_URL ?>controllers/FormController.php" method="POST">
             <input type="hidden" name="userType" value="changepassword">
             <div class="form-group">
               <label for="password">Senha:</label>

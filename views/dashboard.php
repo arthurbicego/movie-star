@@ -7,7 +7,7 @@ $__ROOT__ = dirname(__DIR__);
   require_once($__ROOT__ . "/models/User.php");
   require_once($__ROOT__ . "/models/dao/UserDAO.php");
   require_once($__ROOT__ . "/models/dao/MovieDAO.php");
-  require_once($__ROOT__ . "/FormController.php");
+  require_once($__ROOT__ . "/controllers/FormController.php");
 
   $user = new User();
   $userDao = new UserDao($conn, $BASE_URL);
@@ -44,7 +44,7 @@ $__ROOT__ = dirname(__DIR__);
               <a href="<?php echo $BASE_URL ?>views/editmovie.php?id=<?php echo $movie->id ?>" class="edit-btn">
                 <i class="far fa-edit"></i> Editar
               </a>
-              <form action="<?php echo $BASE_URL ?>FormController.php" method="POST">
+              <form action="<?php echo $BASE_URL ?>controllers/FormController.php" method="POST">
                 <input type="hidden" name="movieType" value="delete">
                 <input type="hidden" name="id" value="<?php echo $movie->id ?>">
                 <button type="submit" class="delete-btn">

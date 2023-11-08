@@ -5,7 +5,7 @@ $__ROOT__ = dirname(__DIR__);
   // Verifica se usuário está autenticado
   require_once($__ROOT__ . "/models/User.php");
   require_once($__ROOT__ . "/models/dao/UserDAO.php");
-  require_once($__ROOT__ . "/FormController.php");
+  require_once($__ROOT__ . "/controllers/FormController.php");
 
   $user = new User();
   $userDao = new UserDao($conn, $BASE_URL);
@@ -17,7 +17,7 @@ $__ROOT__ = dirname(__DIR__);
     <div class="offset-md-4 col-md-4 new-movie-container">
       <h1 class="page-title">Adicionar Filme</h1>
       <p class="page-description">Adicione sua crítica e compartilhe com o mundo!</p>
-      <form action="<?php echo $BASE_URL ?>FormController.php" id="add-movie-form" method="POST" enctype="multipart/form-data">
+      <form action="<?php echo $BASE_URL ?>controllers/FormController.php" id="add-movie-form" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="movieType" value="create">
         <div class="form-group">
           <label for="title">Título:</label>
