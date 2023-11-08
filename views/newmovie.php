@@ -1,9 +1,10 @@
 <?php
-  require_once("templates/header.php");
+$__ROOT__ = dirname(__DIR__);
+  require_once($__ROOT__ . "/views/templates/header.php");
 
   // Verifica se usuário está autenticado
-  require_once("models/User.php");
-  require_once("models/dao/UserDAO.php");
+  require_once($__ROOT__ . "/models/User.php");
+  require_once($__ROOT__ . "/models/dao/UserDAO.php");
 
   $user = new User();
   $userDao = new UserDao($conn, $BASE_URL);
@@ -15,7 +16,7 @@
     <div class="offset-md-4 col-md-4 new-movie-container">
       <h1 class="page-title">Adicionar Filme</h1>
       <p class="page-description">Adicione sua crítica e compartilhe com o mundo!</p>
-      <form action="<?php echo $BASE_URL ?>MovieController.php" id="add-movie-form" method="POST" enctype="multipart/form-data">
+      <form action="<?php echo $BASE_URL ?>controllers/MovieController.php" id="add-movie-form" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="type" value="create">
         <div class="form-group">
           <label for="title">Título:</label>
@@ -53,5 +54,5 @@
     </div>
   </div>
 <?php
-  require_once("templates/footer.php");
+  require_once($__ROOT__ . "/views/templates/footer.php");
 ?>

@@ -1,10 +1,12 @@
 <?php
-  require_once("templates/header.php");
+
+$__ROOT__ = dirname(__DIR__);
+  require_once($__ROOT__ . "/views/templates/header.php");
 
   // Verifica se usuário está autenticado
-  require_once("models/User.php");
-  require_once("models/dao/UserDAO.php");
-  require_once("models/dao/MovieDAO.php");
+  require_once($__ROOT__ . "/models/User.php");
+  require_once($__ROOT__ . "/models/dao/UserDAO.php");
+  require_once($__ROOT__ . "/models/dao/MovieDAO.php");
 
   $user = new User();
   $userDao = new UserDao($conn, $BASE_URL);
@@ -44,7 +46,7 @@
         <div class="col-md-6 offset-md-1">
           <h1><?php echo $movie->title ?></h1>
           <p class="page-description">Altere os dados do filme no fomrulário abaixo:</p>
-          <form id="edit-movie-form" action="<?php echo $BASE_URL ?>MovieController.php" method="POST" enctype="multipart/form-data">
+          <form id="edit-movie-form" action="<?php echo $BASE_URL ?>controllers/MovieController.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="type" value="update">
             <input type="hidden" name="id" value="<?php echo $movie->id ?>">
             <div class="form-group">
@@ -88,5 +90,5 @@
     </div>
   </div>
 <?php
-  require_once("templates/footer.php");
+  require_once($__ROOT__ . "/views/templates/footer.php");
 ?>

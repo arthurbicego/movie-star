@@ -1,7 +1,10 @@
 <?php
 
-  require_once("models/User.php");
-  require_once("models/Message.php");
+$__ROOT__ = dirname(dirname(__DIR__));
+
+  require_once($__ROOT__ . "/models/User.php");
+  require_once($__ROOT__ . "/models/Message.php");
+  require_once($__ROOT__ . "/models/Message.php");
 
   class UserDAO implements UserDAOInterface {
 
@@ -80,7 +83,7 @@
       if($redirect) {
 
         // Redireciona para o perfil do usuario
-        $this->message->setMessage("Dados atualizados com sucesso!", "success", "editprofile.php");
+        $this->message->setMessage("Dados atualizados com sucesso!", "success", "views/editprofile.php");
 
       }
 
@@ -121,7 +124,7 @@
       if($redirect) {
 
         // Redireciona para o perfil do usuario
-        $this->message->setMessage("Seja bem-vindo!", "success", "editprofile.php");
+        $this->message->setMessage("Seja bem-vindo!", "success", "views/editprofile.php");
 
       }
 
@@ -263,7 +266,7 @@
       $stmt->execute();
 
       // Redirecionar e apresentar a mensagem de sucesso
-      $this->message->setMessage("Senha alterada com sucesso!", "success", "editprofile.php");
+      $this->message->setMessage("Senha alterada com sucesso!", "success", "views/editprofile.php");
 
     }
 

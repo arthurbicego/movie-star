@@ -1,8 +1,9 @@
 <?php
-  require_once("templates/header.php");
 
-  require_once("models/User.php");
-  require_once("models/dao/UserDAO.php");
+$__ROOT__ = dirname(__DIR__);
+  require_once($__ROOT__ . "/views/templates/header.php");
+
+  require_once($__ROOT__ . "/models/dao/UserDAO.php");
 
   $user = new User();
   $userDao = new UserDao($conn, $BASE_URL);
@@ -18,7 +19,7 @@
 ?>
   <div id="main-container" class="container-fluid edit-profile-page">
     <div class="col-md-12">
-      <form action="<?php echo $BASE_URL ?>UserController.php" method="POST" enctype="multipart/form-data">
+      <form action="<?php echo $BASE_URL ?>controllers/UserController.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="type" value="update">
         <div class="row">
           <div class="col-md-4">
@@ -39,7 +40,7 @@
             <input type="submit" class="btn card-btn" value="Alterar">
           </div>
           <div class="col-md-4">
-            <div id="profile-image-container" style="background-image: url('<?php echo $BASE_URL ?>/resources/img/users/<?php echo $userData->image ?>')"></div>
+            <div id="profile-image-container" style="background-image: url('<?php echo $BASE_URL ?>resources/img/users/<?php echo $userData->image ?>')"></div>
             <div class="form-group">
               <label for="image">Foto:</label>
               <input type="file" class="form-control-file" name="image">
@@ -55,7 +56,7 @@
         <div class="col-md-4">
           <h2>Alterar a senha:</h2>
           <p class="page-description">Digite a nova senha e confirme, para alterar sua senha:</p>
-          <form action="<?php echo $BASE_URL ?>UserController.php" method="POST">
+          <form action="<?php echo $BASE_URL ?>controllers/UserController.php" method="POST">
             <input type="hidden" name="type" value="changepassword">
             <div class="form-group">
               <label for="password">Senha:</label>
@@ -72,5 +73,5 @@
     </div>
   </div>
 <?php
-  require_once("templates/footer.php");
+  require_once($__ROOT__ . "/views/templates/footer.php");
 ?>

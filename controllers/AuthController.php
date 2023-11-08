@@ -1,9 +1,13 @@
 <?php
-  require_once("globals.php");
-  require_once("database.php");
-  require_once("models/User.php");
-  require_once("models/Message.php");
-  require_once("models/dao/UserDAO.php");
+
+$__ROOT__ = dirname(__DIR__);
+
+require_once($__ROOT__ . "/globals.php");
+require_once($__ROOT__ . "/database.php");
+require_once($__ROOT__ . "/models/User.php");
+require_once($__ROOT__ . "/models/Message.php");
+require_once($__ROOT__ . "/models/dao/UserDAO.php");
+require_once($__ROOT__ . "/controllers/PasswordController.php");
 
 class AuthController {
 
@@ -15,16 +19,18 @@ class AuthController {
   private $password_confirmation;
   private $message;
   private $userDao;
+  private $passwordController;
 
-  public function __construct($conn, $BASE_URL) {
-    $this->type = filter_input(INPUT_POST, "type");
-    $this->name = filter_input(INPUT_POST, "name");
-    $this->lastname = filter_input(INPUT_POST, "lastname");
-    $this->email = filter_input(INPUT_POST, "email");
-    $this->password = filter_input(INPUT_POST, "password");
-    $this->password_confirmation = filter_input(INPUT_POST, "password_confirmation");
-    $this->message = new Message($BASE_URL);
+  public function __construct($conn, $BASE_URL, $type, $name, $lastname, $email, $password, $password_confirmation) {
+    $this->type = $type;
+    $this->name = $name;
+    $this->lastname = $lastname;
+    $this->email = $email;
+    $this->password = $password;
+    $this->password_confirmation = $password_confirmation;
     $this->userDao = new UserDAO($conn, $BASE_URL);
+    $this->message = new Message($BASE_URL);
+    $this->passwordController = new PasswordController();
   }
 
   public function verifyFormsType() {
@@ -33,7 +39,7 @@ class AuthController {
 
     } else if ($this->type === "login") {
       if($this->userDao->authenticateUser($this->email, $this->password)) {
-        $this->message->setMessage("Seja bem-vindo!", "success", "editprofile.php");
+        $this->message->setMessage("Seja bem-vindo!", "success", "views/editprofile.php");
       } else {
         $this->message->setMessage("Usuário e/ou senha incorretos.", "error", "back");
       }
@@ -63,8 +69,8 @@ class AuthController {
     if ($this->userDao->findByEmail($this->email) === false) {
       $user = new User();
 
-      $userToken = $user->generateToken();
-      $finalPassword = $user->generatePassword($this->password);
+      $userToken = bin2hex(random_bytes(50));
+      $finalPassword = $this->passwordController->generatePassword($this->password);
 
       $user->name = $this->name;
       $user->lastname = $this->lastname;
@@ -79,5 +85,4 @@ class AuthController {
       $this->message->setMessage("Usuário já cadastrado, tente outro e-mail.", "error", "back");
     }
   }
-
 }

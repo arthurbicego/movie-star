@@ -1,10 +1,12 @@
 <?php
 
-  require_once("globals.php");
-  require_once("database.php");
-  require_once("models/User.php");
-  require_once("models/Message.php");
-  require_once("models/dao/UserDAO.php");
+$__ROOT__ = dirname(__DIR__);
+
+  require_once($__ROOT__ . "/globals.php");
+  require_once($__ROOT__ . "/database.php");
+  require_once($__ROOT__ . "/models/User.php");
+  require_once($__ROOT__ . "/models/Message.php");
+  require_once($__ROOT__ . "/models/dao/UserDAO.php");
 
   $message = new Message($BASE_URL);
 
@@ -58,7 +60,7 @@
 
         $imageName = $user->imageGenerateName();
 
-        imagejpeg($imageFile, "./resources/img/users/" . $imageName, 100);
+        imagejpeg($imageFile, "../resources/img/users/" . $imageName, 100);
 
         $userData->image = $imageName;
 

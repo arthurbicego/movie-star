@@ -1,7 +1,8 @@
 <?php
-  require_once("templates/header.php");
+$__ROOT__ = dirname(__DIR__);
+  require_once($__ROOT__ . "/views/templates/header.php");
 
-  require_once("models/dao/MovieDAO.php");
+  require_once($__ROOT__ . "/models/dao/MovieDAO.php");
 
   // DAO dos filmes
   $movieDao = new MovieDAO($conn, $BASE_URL);
@@ -17,7 +18,7 @@
     <p class="section-description">Resultados de busca retornados com base na sua pesquisa.</p>
     <div class="movies-container">
       <?php foreach($movies as $movie): ?>
-        <?php require("templates/movie_card.php"); ?>
+        <?php require("views/templates/movie_card.php"); ?>
       <?php endforeach; ?>
       <?php if(count($movies) === 0): ?>
         <p class="empty-list">Não há filmes para esta busca, <a href="<?php echo $BASE_URL ?>" class="back-link">voltar</a>.</p>
@@ -25,5 +26,5 @@
     </div>
   </div>
 <?php
-  require_once("templates/footer.php");
+  require_once($__ROOT__ . "/views/templates/footer.php");
 ?>

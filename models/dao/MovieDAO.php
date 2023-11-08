@@ -1,10 +1,12 @@
 <?php
 
-  require_once("models/Movie.php");
-  require_once("models/Message.php");
+$__ROOT__ = dirname(dirname(__DIR__));
+
+  require_once($__ROOT__ . "/models/Movie.php");
+  require_once($__ROOT__ . "/models/Message.php");
 
   // Review DAO
-  require_once("models/dao/ReviewDAO.php");
+  require_once($__ROOT__ . "/models/dao/ReviewDAO.php");
 
   class MovieDAO implements MovieDAOInterface {
 
@@ -217,7 +219,7 @@
       $stmt->execute();
 
       // Mensagem de sucesso por editar filme
-      $this->message->setMessage("Filme atualizado com sucesso!", "success", "dashboard.php");
+      $this->message->setMessage("Filme atualizado com sucesso!", "success", "views/dashboard.php");
 
     }
 
@@ -230,7 +232,7 @@
       $stmt->execute();
 
       // Mensagem de sucesso por remover filme
-      $this->message->setMessage("Filme removido com sucesso!", "success", "dashboard.php");
+      $this->message->setMessage("Filme removido com sucesso!", "success", "views/dashboard.php");
 
     }
 

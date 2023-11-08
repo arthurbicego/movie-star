@@ -1,10 +1,12 @@
 <?php
-  require_once("templates/header.php");
+
+$__ROOT__ = dirname(__DIR__);
+  require_once($__ROOT__ . "/views/templates/header.php");
 
   // Verifica se usuário está autenticado
-  require_once("models/Movie.php");
-  require_once("models/dao/MovieDAO.php");
-  require_once("models/dao/ReviewDAO.php");
+  require_once($__ROOT__ . "/models/Movie.php");
+  require_once($__ROOT__ . "/models/dao/MovieDAO.php");
+  require_once($__ROOT__ . "/models/dao/ReviewDAO.php");
 
   // Pegar o id do filme
   $id = filter_input(INPUT_GET, "id");
@@ -70,7 +72,7 @@
       <p><?php echo $movie->description ?></p>
     </div>
     <div class="col-md-4">
-      <div class="movie-image-container" style="background-image: url('<?php echo $BASE_URL ?>/resources/img/movies/<?php echo $movie->image ?>')"></div>
+      <div class="movie-image-container" style="background-image: url('<?php echo $BASE_URL ?>resources/img/movies/<?php echo $movie->image ?>')"></div>
     </div>
     <div class="offset-md-1 col-md-10" id="reviews-container">
       <h3 id="reviews-title">Avaliações:</h3>
@@ -79,7 +81,7 @@
       <div class="col-md-12" id="review-form-container">
         <h4>Envie sua avaliação:</h4>
         <p class="page-description">Preencha o formulário com a nota e comentário sobre o filme</p>
-        <form action="<?php echo $BASE_URL ?>ReviewController.php" id="review-form" method="POST">
+        <form action="<?php echo $BASE_URL ?>controllers/ReviewController.php" id="review-form" method="POST">
           <input type="hidden" name="type" value="create">
           <input type="hidden" name="movies_id" value="<?php echo $movie->id ?>">
           <div class="form-group">
@@ -108,7 +110,7 @@
       <?php endif; ?>
       <!-- Comentários -->
       <?php foreach($movieReviews as $review): ?>
-        <?php require("templates/user_review.php"); ?>
+        <?php require("views/templates/user_review.php"); ?>
       <?php endforeach; ?>
       <?php if(count($movieReviews) == 0): ?>
         <p class="empty-list">Não há comentários para este filme ainda...</p>
@@ -117,5 +119,5 @@
   </div>
 </div>
 <?php
-  require_once("templates/footer.php");
+  require_once($__ROOT__ . "/views/templates/footer.php");
 ?>

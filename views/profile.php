@@ -1,10 +1,11 @@
 <?php
-  require_once("templates/header.php");
+$__ROOT__ = dirname(__DIR__);
+  require_once($__ROOT__ . "/views/templates/header.php");
 
   // Verifica se usuário está autenticado
-  require_once("models/User.php");
-  require_once("models/dao/UserDAO.php");
-  require_once("models/dao/MovieDAO.php");
+  require_once($__ROOT__ . "/models/User.php");
+  require_once($__ROOT__ . "/models/dao/UserDAO.php");
+  require_once($__ROOT__ . "/models/dao/MovieDAO.php");
 
   $user = new User();
   $userDao = new UserDAO($conn, $BASE_URL);
@@ -63,7 +64,7 @@
           <h3>Filmes que enviou:</h3>
           <div class="movies-container">
             <?php foreach($userMovies as $movie): ?>
-              <?php require("templates/movie_card.php"); ?>
+              <?php require("views/templates/movie_card.php"); ?>
             <?php endforeach; ?>
             <?php if(count($userMovies) === 0): ?>
               <p class="empty-list">O usuário ainda não enviou filmes.</p>
@@ -74,5 +75,5 @@
     </div>
   </div>
 <?php
-  require_once("templates/footer.php");
+  require_once($__ROOT__ . "/views/templates/footer.php");
 ?>
