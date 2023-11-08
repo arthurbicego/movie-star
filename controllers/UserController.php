@@ -7,103 +7,82 @@ $__ROOT__ = dirname(__DIR__);
   require_once($__ROOT__ . "/models/User.php");
   require_once($__ROOT__ . "/models/Message.php");
   require_once($__ROOT__ . "/models/dao/UserDAO.php");
+  require_once($__ROOT__ . "/controllers/ImageController.php");
 
-  $message = new Message($BASE_URL);
+  class UserController {
 
-  $userDao = new UserDAO($conn, $BASE_URL);
+  private $type;
 
-  // Resgata o tipo do formulário
-  $type = filter_input(INPUT_POST, "type");
+  private $user;
+  private $userDao;
+  private $userData;
+  private $id;
+  private $name;
+  private $lastname;
+  private $email;
+  private $bio;
+  
+  private $message;
 
-  // Atualizar usuário
-  if($type === "update") {
+  private $password;
+  private $password_confirmation;
+  private $finalPassword;
 
-    // Resgata dados do usuário
-    $userData = $userDao->verifyToken();
+  private $imageController;
+  private $passwordController;
+  
+  private $stringType;
 
-    // Receber dados do post
-    $name = filter_input(INPUT_POST, "name");
-    $lastname = filter_input(INPUT_POST, "lastname");
-    $email = filter_input(INPUT_POST, "email");
-    $bio = filter_input(INPUT_POST, "bio");
+  public function __construct($conn, $BASE_URL, $userType, $name, $lastname, $email, $bio, $password, $password_confirmation) {
+    
+    $this->user = new User();
+    $this->userDao = new UserDAO($conn, $BASE_URL);
+    $this->userData = $this->userDao->verifyToken();
+    $this->id = $this->userData->id;
+    $this->type = $userType;
+    $this->name = $name;
+    $this->lastname = $lastname;
+    $this->email = $email;
+    $this->bio = $bio;
+    $this->password = $password;
+    $this->password_confirmation = $password_confirmation;
+    
+    $this->message = new Message($BASE_URL);
+    $this->finalPassword;
 
-    // Criar um novo objeto de usuário
-    $user = new User();
+    $this->imageController = new ImageController($_FILES["image"], $BASE_URL);
+    $this->passwordController = new PasswordController($conn, $BASE_URL);
 
-    // Preencher os dados do usuário
-    $userData->name = $name;
-    $userData->lastname = $lastname;
-    $userData->email = $email;
-    $userData->bio = $bio;
+    $this->stringType = "user";
+  }
+  
 
-    // Upload da imagem
-    if(isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
-      
-      $image = $_FILES["image"];
-      $imageTypes = ["image/jpeg", "image/jpg", "image/png"];
-      $jpgArray = ["image/jpeg", "image/jpg"];
+  
+  public function verifyFormsType() {
+    if($this->type === "update") {
+      $this->updateUserData();
+      $this->userData->image = $this->imageController->verifyImageUpload($this->stringType);
+      $this->userDao->update($this->userData);
 
-      // Checagem de tipo de imagem
-      if(in_array($image["type"], $imageTypes)) {
-
-        // Checar se jpg
-        if(in_array($image, $jpgArray)) {
-
-          $imageFile = imagecreatefromjpeg($image["tmp_name"]);
-
-        // Imagem é png
-        } else {
-
-          $imageFile = imagecreatefrompng($image["tmp_name"]);
-
-        }
-
-        $imageName = $user->imageGenerateName();
-
-        imagejpeg($imageFile, "../resources/img/users/" . $imageName, 100);
-
-        $userData->image = $imageName;
-
+    } else if($this->type === "changepassword") {
+      if ($this->password === $this->password_confirmation) {
+        $this->finalPassword = $this->passwordController->generatePassword($this->password);
+        $this->user->password = $this->finalPassword;
+        $this->user->id = $this->id;
+        $this->userDao->changePassword($this->user);
       } else {
-
-        $message->setMessage("Tipo inválido de imagem, insira png ou jpg!", "error", "back");
-
+        $this->message->setMessage("As senhas não são iguais!", "error", "back");
       }
 
-    }
-
-    $userDao->update($userData);
-
-  // Atualizar senha do usuário
-  } else if($type === "changepassword") {
-
-    // Receber dados do post
-    $password = filter_input(INPUT_POST, "password");
-    $password_confirmation = filter_input(INPUT_POST, "password_confirmation");
-
-    // Resgata dados do usuário
-    $userData = $userDao->verifyToken();
-    
-    $id = $userData->id;
-
-    if($password == $password_confirmation) {
-
-      // Criar um novo objeto de usuário
-      $user = new User();
-
-      $finalPassword = $user->generatePassword($password);
-
-      $user->password = $finalPassword;
-      $user->id = $id;
-
-      $userDao->changePassword($user);
-
     } else {
-      $message->setMessage("As senhas não são iguais!", "error", "back");
+        $this->message->setMessage("Informações inválidas!", "error", "index.php");
+      }
     }
 
-  } else {
-
-    $message->setMessage("Informações inválidas!", "error", "index.php");
-
-  }
+    private function updateUserData() {
+      $this->userData->name = $this->name;
+      $this->userData->lastname = $this->lastname;
+      $this->userData->email = $this->email;
+      $this->userData->bio = $this->bio;
+    }
+}

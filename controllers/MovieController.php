@@ -29,6 +29,8 @@ class MovieController {
 
   private $imageController;
 
+  private $stringType;
+
   public function __construct($conn, $BASE_URL, $id, $movieType, $title, $description, $trailer, $category, $length) {
     $this->id = $id;
     $this->type = $movieType;
@@ -46,13 +48,14 @@ class MovieController {
     $this->movieDao = new MovieDAO($conn, $BASE_URL);
     
     $this->imageController = new ImageController($_FILES["image"], $BASE_URL);
+    $this->stringType = "movie";
   }
 
 
   public function verifyFormsType() {
     if($this->type === "create") {
       $this->verifyInput();
-      $this->imageController->verifyImageUpload();
+      $this->movie->image = $this->imageController->verifyImageUpload($this->stringType);
       $this->movieDao->create($this->movie);
 
     } else if ($this->type === "delete") {
@@ -65,7 +68,7 @@ class MovieController {
     } else if ($this->type === "update") {
       if ($this->verifyMovieFound() && $this->verifyMovieUser()) {
         $this->verifyInput();
-        $this->imageController->verifyImageUpload();
+        $this->imageController->verifyImageUpload($this->stringType);
         $this->movieDao->update($this->movie);
       } else {
         $this->message->setMessage("Informações inválidas!", "error", "index.php");
