@@ -9,7 +9,8 @@ require_once($__ROOT__ . "/models/Message.php");
 require_once($__ROOT__ . "/models/dao/UserDAO.php");
 require_once($__ROOT__ . "/controllers/PasswordController.php");
 
-class AuthController {
+class AuthController
+{
 
   private $type;
   private $name;
@@ -21,7 +22,8 @@ class AuthController {
   private $userDao;
   private $passwordController;
 
-  public function __construct($conn, $BASE_URL, $authType, $name, $lastname, $email, $password, $password_confirmation) {
+  public function __construct($conn, $BASE_URL, $authType, $name, $lastname, $email, $password, $password_confirmation)
+  {
     $this->type = $authType;
     $this->name = $name;
     $this->lastname = $lastname;
@@ -33,31 +35,32 @@ class AuthController {
     $this->passwordController = new PasswordController();
   }
 
-  public function verifyFormsType() {
-    if($this->type === "register") {
+  public function verifyFormsType()
+  {
+    if ($this->type === "register") {
       $this->verifyInput();
-
     } else if ($this->type === "login") {
-      if($this->userDao->authenticateUser($this->email, $this->password)) {
+      if ($this->userDao->authenticateUser($this->email, $this->password)) {
         $this->message->setMessage("Seja bem-vindo!", "success", "views/editprofile.php");
       } else {
         $this->message->setMessage("Usuário e/ou senha incorretos.", "error", "back");
       }
-
     } else {
       $this->message->setMessage("Informações inválidas!", "error", "index.php");
     }
   }
 
-  private function verifyInput() {
+  private function verifyInput()
+  {
     if ($this->name && $this->lastname && $this->email && $this->password) {
-    $this->verifyPassword();
+      $this->verifyPassword();
     } else {
       $this->message->setMessage("Por favor, preencha todos os campos.", "error", "back");
     }
   }
 
-  private function verifyPassword() {
+  private function verifyPassword()
+  {
     if ($this->password === $this->password_confirmation) {
       $this->verifyEmailIsRegistered();
     } else {
@@ -65,7 +68,8 @@ class AuthController {
     }
   }
 
-  private function verifyEmailIsRegistered(){
+  private function verifyEmailIsRegistered()
+  {
     if ($this->userDao->findByEmail($this->email) === false) {
       $user = new User();
 

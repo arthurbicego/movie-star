@@ -1,28 +1,29 @@
 <?php
 
-  $__ROOT__ = dirname(dirname(__DIR__));
+$__ROOT__ = dirname(dirname(__DIR__));
 
-  require_once($__ROOT__ . "/globals.php");
-  require_once($__ROOT__ . "/database.php");
-  require_once($__ROOT__ . "/models/Message.php");
-  require_once($__ROOT__ . "/models/dao/UserDAO.php");
+require_once($__ROOT__ . "/globals.php");
+require_once($__ROOT__ . "/database.php");
+require_once($__ROOT__ . "/models/Message.php");
+require_once($__ROOT__ . "/models/dao/UserDAO.php");
 
-  $message = new Message($BASE_URL);
+$message = new Message($BASE_URL);
 
-  $flassMessage = $message->getMessage();
+$flassMessage = $message->getMessage();
 
-  if(!empty($flassMessage["msg"])) {
-    // Limpar a mensagem
-    $message->clearMessage();
-  }
+if (!empty($flassMessage["msg"])) {
+  // Limpar a mensagem
+  $message->clearMessage();
+}
 
-  $userDao = new UserDAO($conn, $BASE_URL);
+$userDao = new UserDAO($conn, $BASE_URL);
 
-  $userData = $userDao->verifyToken(false);
+$userData = $userDao->verifyToken(false);
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +36,7 @@
   <!-- CSS do projeto -->
   <link rel="stylesheet" href="<?php echo $BASE_URL ?>resources/css/styles.css">
 </head>
+
 <body>
   <header>
     <nav id="main-navbar" class="navbar navbar-expand-lg">
@@ -53,7 +55,7 @@
       </form>
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav">
-          <?php if($userData): ?>
+          <?php if ($userData) : ?>
             <li class="nav-item">
               <a href="<?php echo $BASE_URL ?>views/newmovie.php" class="nav-link">
                 <i class="far fa-plus-square"></i> Incluir Filme
@@ -70,7 +72,7 @@
             <li class="nav-item">
               <a href="<?php echo $BASE_URL ?>views/logout.php" class="nav-link">Sair</a>
             </li>
-          <?php else: ?>
+          <?php else : ?>
             <li class="nav-item">
               <a href="<?php echo $BASE_URL ?>views/auth.php" class="nav-link">Entrar / Cadastrar</a>
             </li>
@@ -79,7 +81,7 @@
       </div>
     </nav>
   </header>
-  <?php if(!empty($flassMessage["msg"])): ?>
+  <?php if (!empty($flassMessage["msg"])) : ?>
     <div class="msg-container">
       <p class="msg <?php echo $flassMessage["type"] ?>"><?php echo $flassMessage["msg"] ?></p>
     </div>

@@ -1,9 +1,10 @@
 <?php
 
-class TokenController {
+class TokenController
+{
 
-public function generateToken() {
-    return bin2hex(random_bytes(50));
+    public function generateToken()
+    {
+        return bin2hex(random_bytes(50));
     }
-
 }

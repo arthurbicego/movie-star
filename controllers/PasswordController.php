@@ -1,9 +1,10 @@
 <?php
 
-class PasswordController {
+class PasswordController
+{
 
-public function generatePassword($password) {
+  public function generatePassword($password)
+  {
     return password_hash($password, PASSWORD_DEFAULT);
   }
-
 }

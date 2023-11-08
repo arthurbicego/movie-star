@@ -2,14 +2,15 @@
 
 $__ROOT__ = dirname(__DIR__);
 
-  require_once($__ROOT__ . "/globals.php");
-  require_once($__ROOT__ . "/database.php");
-  require_once($__ROOT__ . "/models/User.php");
-  require_once($__ROOT__ . "/models/Message.php");
-  require_once($__ROOT__ . "/models/dao/UserDAO.php");
-  require_once($__ROOT__ . "/controllers/ImageController.php");
+require_once($__ROOT__ . "/globals.php");
+require_once($__ROOT__ . "/database.php");
+require_once($__ROOT__ . "/models/User.php");
+require_once($__ROOT__ . "/models/Message.php");
+require_once($__ROOT__ . "/models/dao/UserDAO.php");
+require_once($__ROOT__ . "/controllers/ImageController.php");
 
-  class UserController {
+class UserController
+{
 
   private $type;
 
@@ -21,7 +22,7 @@ $__ROOT__ = dirname(__DIR__);
   private $lastname;
   private $email;
   private $bio;
-  
+
   private $message;
 
   private $password;
@@ -30,11 +31,12 @@ $__ROOT__ = dirname(__DIR__);
 
   private $imageController;
   private $passwordController;
-  
+
   private $stringType;
 
-  public function __construct($conn, $BASE_URL, $userType, $name, $lastname, $email, $bio, $password, $password_confirmation) {
-    
+  public function __construct($conn, $BASE_URL, $userType, $name, $lastname, $email, $bio, $password, $password_confirmation)
+  {
+
     $this->user = new User();
     $this->userDao = new UserDAO($conn, $BASE_URL);
     $this->userData = $this->userDao->verifyToken();
@@ -46,7 +48,7 @@ $__ROOT__ = dirname(__DIR__);
     $this->bio = $bio;
     $this->password = $password;
     $this->password_confirmation = $password_confirmation;
-    
+
     $this->message = new Message($BASE_URL);
     $this->finalPassword;
 
@@ -55,16 +57,14 @@ $__ROOT__ = dirname(__DIR__);
 
     $this->stringType = "user";
   }
-  
 
-  
-  public function verifyFormsType() {
-    if($this->type === "update") {
+  public function verifyFormsType()
+  {
+    if ($this->type === "update") {
       $this->updateUserData();
       $this->userData->image = $this->imageController->verifyImageUpload($this->stringType);
       $this->userDao->update($this->userData);
-
-    } else if($this->type === "changepassword") {
+    } else if ($this->type === "changepassword") {
       if ($this->password === $this->password_confirmation) {
         $this->finalPassword = $this->passwordController->generatePassword($this->password);
         $this->user->password = $this->finalPassword;
@@ -73,16 +73,16 @@ $__ROOT__ = dirname(__DIR__);
       } else {
         $this->message->setMessage("As senhas não são iguais!", "error", "back");
       }
-
     } else {
-        $this->message->setMessage("Informações inválidas!", "error", "index.php");
-      }
+      $this->message->setMessage("Informações inválidas!", "error", "index.php");
     }
+  }
 
-    private function updateUserData() {
-      $this->userData->name = $this->name;
-      $this->userData->lastname = $this->lastname;
-      $this->userData->email = $this->email;
-      $this->userData->bio = $this->bio;
-    }
+  private function updateUserData()
+  {
+    $this->userData->name = $this->name;
+    $this->userData->lastname = $this->lastname;
+    $this->userData->email = $this->email;
+    $this->userData->bio = $this->bio;
+  }
 }

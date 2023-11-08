@@ -2,16 +2,17 @@
 
 $__ROOT__ = dirname(__DIR__);
 
-  require_once($__ROOT__ . "globals.php");
-  require_once($__ROOT__ . "db.php");
-  require_once($__ROOT__ . "models/Movie.php");
-  require_once($__ROOT__ . "models/Review.php");
-  require_once($__ROOT__ . "models/Message.php");
-  require_once($__ROOT__ . "models/dao/UserDAO.php");
-  require_once($__ROOT__ . "models/dao/MovieDAO.php");
-  require_once($__ROOT__ . "models/dao/ReviewDAO.php");
+require_once($__ROOT__ . "globals.php");
+require_once($__ROOT__ . "db.php");
+require_once($__ROOT__ . "models/Movie.php");
+require_once($__ROOT__ . "models/Review.php");
+require_once($__ROOT__ . "models/Message.php");
+require_once($__ROOT__ . "models/dao/UserDAO.php");
+require_once($__ROOT__ . "models/dao/MovieDAO.php");
+require_once($__ROOT__ . "models/dao/ReviewDAO.php");
 
-class ReviewController {
+class ReviewController
+{
 
   private $id;
   private $message;
@@ -27,7 +28,8 @@ class ReviewController {
   private $users_id;
 
 
-  public function __construct($conn, $BASE_URL, $url, $reviewType, $rating, $review, $movies_id) {
+  public function __construct($conn, $BASE_URL, $url, $reviewType, $rating, $review, $movies_id)
+  {
     $this->message = new Message($url);
     $this->userDao = new UserDAO($conn, $BASE_URL);
     $this->movieDao = new MovieDAO($conn, $BASE_URL);
@@ -41,35 +43,37 @@ class ReviewController {
     $this->users_id = $this->userData->id;
   }
 
-  public function verifyFormsType() {
-    if($this->type === "create") {
-      if($this->verifyMovieFound()) {
+  public function verifyFormsType()
+  {
+    if ($this->type === "create") {
+      if ($this->verifyMovieFound()) {
         $this->verifyInput();
         $this->reviewDao->create($this->reviewObject);
       } else {
         $this->message->setMessage("Informações inválidas!", "error", "index.php");
       }
     } else {
-        $this->message->setMessage("Informações inválidas!", "error", "index.php");
-      }
+      $this->message->setMessage("Informações inválidas!", "error", "index.php");
     }
+  }
 
-  private function verifyInput() {
-      if(!empty($this->rating) && !empty($this->review) && !empty($this->movies_id)) {
-        $this->reviewObject->rating = $this->rating;
-        $this->reviewObject->review = $this->review;
-        $this->reviewObject->movies_id = $this->movies_id;
-        $this->reviewObject->users_id = $this->users_id;
-      }
+  private function verifyInput()
+  {
+    if (!empty($this->rating) && !empty($this->review) && !empty($this->movies_id)) {
+      $this->reviewObject->rating = $this->rating;
+      $this->reviewObject->review = $this->review;
+      $this->reviewObject->movies_id = $this->movies_id;
+      $this->reviewObject->users_id = $this->users_id;
     }
-  
+  }
 
-  private function verifyMovieFound() {
+
+  private function verifyMovieFound()
+  {
     if ($this->movieDao->findById($this->movies_id)) {
       return true;
     } else {
       return false;
     }
   }
-
 }

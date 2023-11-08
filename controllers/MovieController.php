@@ -2,15 +2,16 @@
 
 $__ROOT__ = dirname(__DIR__);
 
-  require_once($__ROOT__ . "/globals.php");
-  require_once($__ROOT__ . "/database.php");
-  require_once($__ROOT__ . "/models/Movie.php");
-  require_once($__ROOT__ . "/models/Message.php");
-  require_once($__ROOT__ . "/models/dao/UserDAO.php");
-  require_once($__ROOT__ . "/models/dao/MovieDAO.php");
-  require_once($__ROOT__ . "/controllers/ImageController.php");
+require_once($__ROOT__ . "/globals.php");
+require_once($__ROOT__ . "/database.php");
+require_once($__ROOT__ . "/models/Movie.php");
+require_once($__ROOT__ . "/models/Message.php");
+require_once($__ROOT__ . "/models/dao/UserDAO.php");
+require_once($__ROOT__ . "/models/dao/MovieDAO.php");
+require_once($__ROOT__ . "/controllers/ImageController.php");
 
-class MovieController {
+class MovieController
+{
 
   private $id;
   private $type;
@@ -31,7 +32,8 @@ class MovieController {
 
   private $stringType;
 
-  public function __construct($conn, $BASE_URL, $id, $movieType, $title, $description, $trailer, $category, $length) {
+  public function __construct($conn, $BASE_URL, $id, $movieType, $title, $description, $trailer, $category, $length)
+  {
     $this->id = $id;
     $this->type = $movieType;
     $this->title = $title;
@@ -46,25 +48,24 @@ class MovieController {
     $this->userDao = new UserDAO($conn, $BASE_URL);
     $this->userData = $this->userDao->verifyToken();
     $this->movieDao = new MovieDAO($conn, $BASE_URL);
-    
+
     $this->imageController = new ImageController($_FILES["image"], $BASE_URL);
     $this->stringType = "movie";
   }
 
 
-  public function verifyFormsType() {
-    if($this->type === "create") {
+  public function verifyFormsType()
+  {
+    if ($this->type === "create") {
       $this->verifyInput();
       $this->movie->image = $this->imageController->verifyImageUpload($this->stringType);
       $this->movieDao->create($this->movie);
-
     } else if ($this->type === "delete") {
       if ($this->verifyMovieFound() && $this->verifyMovieUser()) {
         $this->movieDao->destroy($this->movie->id);
       } else {
         $this->message->setMessage("Informações inválidas!", "error", "index.php");
       }
-
     } else if ($this->type === "update") {
       if ($this->verifyMovieFound() && $this->verifyMovieUser()) {
         $this->verifyInput();
@@ -78,8 +79,9 @@ class MovieController {
 
   // ---------------------------------------------------------------------------------------
 
-  private function verifyInput(){
-    if(!empty($this->title) && !empty($this->description) && !empty($this->category)) {
+  private function verifyInput()
+  {
+    if (!empty($this->title) && !empty($this->description) && !empty($this->category)) {
       $this->movie->title = $this->title;
       $this->movie->description = $this->description;
       $this->movie->trailer = $this->trailer;
@@ -87,29 +89,28 @@ class MovieController {
       $this->movie->length = $this->length;
       // I need to understand where this userData id comes from
       $this->movie->users_id = $this->userData->id;
-
     } else {
       $this->message->setMessage("Você precisa adicionar pelo menos: título, descrição e categoria!", "error", "back");
     }
   }
 
   // ---------------------------------------------------------------------------------------
-  
-  private function verifyMovieFound() {
+
+  private function verifyMovieFound()
+  {
     if ($this->movieDao->findById($this->id)) {
       return true;
     } else {
       return false;
     }
   }
-  
-  private function verifyMovieUser(){
-    if($this->movie->users_id === $this->userData->id) {
+
+  private function verifyMovieUser()
+  {
+    if ($this->movie->users_id === $this->userData->id) {
       return true;
-      
     } else {
       return false;
     }
   }
-
 }

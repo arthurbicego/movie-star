@@ -1,8 +1,8 @@
 <?php
 
-  if(empty($movie->image)) {
-    $movie->image = "movie_cover.jpg";
-  }
+if (empty($movie->image)) {
+  $movie->image = "movie_cover.jpg";
+}
 
 ?>
 <div class="card movie-card">

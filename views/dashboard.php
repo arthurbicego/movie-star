@@ -1,41 +1,41 @@
 <?php
 
 $__ROOT__ = dirname(__DIR__);
-  require_once($__ROOT__ . "/views/templates/header.php");
+require_once($__ROOT__ . "/views/templates/header.php");
 
-  // Verifica se usuário está autenticado
-  require_once($__ROOT__ . "/models/User.php");
-  require_once($__ROOT__ . "/models/dao/UserDAO.php");
-  require_once($__ROOT__ . "/models/dao/MovieDAO.php");
-  require_once($__ROOT__ . "/controllers/FormController.php");
+// Verifica se usuário está autenticado
+require_once($__ROOT__ . "/models/User.php");
+require_once($__ROOT__ . "/models/dao/UserDAO.php");
+require_once($__ROOT__ . "/models/dao/MovieDAO.php");
+require_once($__ROOT__ . "/controllers/FormController.php");
 
-  $user = new User();
-  $userDao = new UserDao($conn, $BASE_URL);
-  $movieDao = new MovieDAO($conn, $BASE_URL);
+$user = new User();
+$userDao = new UserDao($conn, $BASE_URL);
+$movieDao = new MovieDAO($conn, $BASE_URL);
 
-  $userData = $userDao->verifyToken(true);
+$userData = $userDao->verifyToken(true);
 
-  $userMovies = $movieDao->getMoviesByUserId($userData->id);
+$userMovies = $movieDao->getMoviesByUserId($userData->id);
 
 ?>
-  <div id="main-container" class="container-fluid">
-    <h2 class="section-title">Dashboard</h2>
-    <p class="section-description">Adicione ou atualize as informações dos filmes que você enviou</p>
-    <div class="col-md-12" id="add-movie-container">
-      <a href="<?php echo $BASE_URL ?>views/newmovie.php" class="btn card-btn">
-        <i class="fas fa-plus"></i> Adicionar Filme
-      </a>
-    </div>
-    <div class="col-md-12" id="movies-dashboard">
-      <table class="table">
-        <thead>
-          <th scope="col">#</th>
-          <th scope="col">Título</th>
-          <th scope="col">Nota</th>
-          <th scope="col" class="actions-column">Ações</th>
-        </thead>
-        <tbody>
-          <?php foreach($userMovies as $movie): ?>
+<div id="main-container" class="container-fluid">
+  <h2 class="section-title">Dashboard</h2>
+  <p class="section-description">Adicione ou atualize as informações dos filmes que você enviou</p>
+  <div class="col-md-12" id="add-movie-container">
+    <a href="<?php echo $BASE_URL ?>views/newmovie.php" class="btn card-btn">
+      <i class="fas fa-plus"></i> Adicionar Filme
+    </a>
+  </div>
+  <div class="col-md-12" id="movies-dashboard">
+    <table class="table">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Título</th>
+        <th scope="col">Nota</th>
+        <th scope="col" class="actions-column">Ações</th>
+      </thead>
+      <tbody>
+        <?php foreach ($userMovies as $movie) : ?>
           <tr>
             <td scope="row"><?php echo $movie->id ?></td>
             <td><a href="<?php echo $BASE_URL ?>views/movie.php?id=<?php echo $movie->id ?>" class="table-movie-title"><?php echo $movie->title ?></a></td>
@@ -53,11 +53,11 @@ $__ROOT__ = dirname(__DIR__);
               </form>
             </td>
           </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    </div>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
   </div>
+</div>
 <?php
-  require_once($__ROOT__ . "/views/templates/footer.php");
+require_once($__ROOT__ . "/views/templates/footer.php");
 ?>

@@ -8,7 +8,7 @@
 }
 
 #moviestar-title {
-  color: #FFF;
+  color: #fff;
   position: absolute;
   bottom: -2px;
   font-size: 30px;
@@ -22,7 +22,7 @@
 
 #search-form {
   margin: 0 auto;
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 5px;
   width: 50%;
   margin-left: 180px;
@@ -44,8 +44,8 @@
 }
 
 .navbar-nav .nav-item .nav-link {
-  color: #FFF;
-  transition: .5s;
+  color: #fff;
+  transition: 0.5s;
 }
 
 .navbar-nav .nav-item .nav-link:hover {
@@ -71,33 +71,33 @@
 
 .msg.error {
   color: #842029;
-  background-color: #F8D7DA;
-  border-color: #F5C2C7;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
 }
 
 .msg.success {
-  color: #0F5132;
-  background-color: #D1E7DD;
-  border-color: #BADBCC;
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
 }
 
 /* Home */
 #main-container {
   background-color: #000;
-  color: #FFF;
+  color: #fff;
   min-height: 65vh;
   padding: 40px;
 }
 
 .section-title {
   font-size: 24px;
-  border-left: 4px solid #F5C518;
+  border-left: 4px solid #f5c518;
   padding-left: 12px;
   margin-top: 20px;
 }
 
 .section-description {
-  color: #CCC;
+  color: #ccc;
   font-size: 18px;
 }
 
@@ -108,7 +108,7 @@
 }
 
 .movie-card {
-  background-color: #1A1A1A;
+  background-color: #1a1a1a;
   width: 18%;
   margin-bottom: 30px;
   margin-left: 1%;
@@ -128,20 +128,20 @@
 
 .card-title a {
   font-size: 16px;
-  color: #FFF;
+  color: #fff;
 }
 
 .fas.fa-star {
-  color: #F5C518;
+  color: #f5c518;
 }
 
 .rating {
-  color: #CCC;
+  color: #ccc;
 }
 
 .rate-btn {
   margin-bottom: 15px;
-  color: #5799EF;
+  color: #5799ef;
   background-color: #333;
   border-color: #333;
   width: 100%;
@@ -168,7 +168,7 @@
 #login-container h2,
 #register-container h2 {
   text-align: center;
-  border-bottom: 2px solid #F5C518;
+  border-bottom: 2px solid #f5c518;
   width: 200px;
   margin: 0 auto;
   padding: 10px;
@@ -182,15 +182,15 @@
 
 .card-btn {
   color: #000;
-  background-color: #F5C518;
-  border: 2px solid #F5C518;
+  background-color: #f5c518;
+  border: 2px solid #f5c518;
   width: 100%;
 }
 
 .card-btn:hover {
   background-color: transparent;
-  color: #F5C518;
-  border-color: #F5C518;
+  color: #f5c518;
+  border-color: #f5c518;
 }
 
 /* Edit Profile */
@@ -198,7 +198,7 @@
 .profile-image-container {
   width: 150px;
   height: 150px;
-  border: 6px solid #F5C518;
+  border: 6px solid #f5c518;
   border-radius: 100%;
   background-size: cover;
   background-position: center;
@@ -219,7 +219,7 @@
 }
 
 .form-control.disabled {
-  background-color: #BBB;
+  background-color: #bbb;
 }
 
 #change-password-container {
@@ -243,7 +243,7 @@
 }
 
 .about-title {
-  color: #CCC;
+  color: #ccc;
 }
 
 .profile-description {
@@ -259,7 +259,7 @@
 .about-container {
   text-align: center;
   background-color: #333;
-  border-bottom: 3px solid #CCC;
+  border-bottom: 3px solid #ccc;
 }
 
 .added-movies-container {
@@ -293,7 +293,7 @@
 .page-title:after {
   content: "";
   width: 300px;
-  border-bottom: 2px solid #F5C518;
+  border-bottom: 2px solid #f5c518;
   display: block;
   margin: 0 auto;
   padding-top: 7px;
@@ -330,7 +330,7 @@
 #reviews-container {
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 4px solid #F5C518;
+  border-top: 4px solid #f5c518;
 }
 
 .review {
@@ -343,7 +343,7 @@
 }
 
 .author-name a {
-  color: #F5C518;
+  color: #f5c518;
 }
 
 .comment-title {
@@ -356,7 +356,7 @@
 }
 
 #movies-dashboard .table {
-  color: #FFF;
+  color: #fff;
 }
 
 #movies-dashboard .table th {
@@ -368,13 +368,13 @@
 }
 
 .table-movie-title {
-  color: #FFF;
+  color: #fff;
   font-weight: bold;
-  transition: .5s;
+  transition: 0.5s;
 }
 
 .table-movie-title:hover {
-  color: #F5C518;
+  color: #f5c518;
 }
 
 .actions-column {
@@ -392,29 +392,29 @@
   border-radius: 5px;
   margin: 0 5px;
   font-weight: bold;
-  transition: .5s;
+  transition: 0.5s;
   border: none;
 }
 
 .edit-btn {
-  background-color: #0DCAF0;
-  color: #FFF;
+  background-color: #0dcaf0;
+  color: #fff;
 }
 
 .edit-btn:hover {
   background-color: transparent;
-  color: #0DCAF0;
+  color: #0dcaf0;
   text-decoration: none;
 }
 
 .delete-btn {
-  background-color: #DC3545;
-  color: #FFF;
+  background-color: #dc3545;
+  color: #fff;
 }
 
 .delete-btn:hover {
   background-color: transparent;
-  color: #DC3545;
+  color: #dc3545;
   text-decoration: none;
 }
 
@@ -425,13 +425,13 @@
 
 #search-result,
 .back-link {
-  color: #F5C518;
+  color: #f5c518;
 }
 
 /* Footer */
 #footer {
   background-color: #000;
-  color: #FFF;
+  color: #fff;
   text-align: center;
   margin: 0;
   padding: 20px;
@@ -453,7 +453,7 @@
   height: 40px;
   width: 40px;
   border-radius: 100%;
-  transition: .5s;
+  transition: 0.5s;
   line-height: 3;
 }
 
@@ -463,8 +463,8 @@
 
 #social-container a,
 #footer-links-container a {
-  color: #FFF;
-  transition: .5s;
+  color: #fff;
+  transition: 0.5s;
 }
 
 #social-container li i {
@@ -476,8 +476,7 @@
 }
 
 /* Responsivo */
-@media(max-width: 450px) {
-
+@media (max-width: 450px) {
   #main-container {
     padding: 20px;
   }
@@ -565,7 +564,6 @@
   }
 
   .fas.fa-bars {
-    color: #F5C518;
+    color: #f5c518;
   }
-
 }
