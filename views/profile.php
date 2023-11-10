@@ -48,7 +48,7 @@ $userMovies = $movieDao->getMoviesByUserId($id);
     <div class="row profile-container">
       <div class="col-md-12 about-container">
         <h1 class="page-title"><?php echo $fullName ?></h1>
-        <div id="profile-image-container" class="profile-image" style="background-image: url('<?php echo $BASE_URL ?>resources/img/users/<?php echo $userData->image ?>')"></div>
+        <div id="profile-image-container" class="profile-image" style="background-image: url('<?php echo $BASE_URL ?>resources/users/<?php echo $userData->image ?>')"></div>
         <h3 class="about-title">Sobre:</h3>
         <?php if (!empty($userData->bio)) : ?>
           <p class="profile-description"><?php echo $userData->bio ?></p>

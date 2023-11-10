@@ -16,6 +16,7 @@ $actionMovies = $movieDao->getMoviesByCategory("Ação");
 $comedyMovies = $movieDao->getMoviesByCategory("Comédia");
 
 ?>
+
 <div id="main-container" class="container-fluid">
   <h2 class="section-title">Filmes novos</h2>
   <p class="section-description">Veja as críticas dos últimos filmes adicionados no Movie Star</p>

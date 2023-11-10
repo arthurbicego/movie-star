@@ -11,25 +11,26 @@ require_once($__ROOT__ . "/controllers/PasswordController.php");
 
 class AuthController
 {
-
-  private $type;
+  private $authType;
   private $name;
   private $lastname;
   private $email;
   private $password;
   private $password_confirmation;
+
   private $message;
   private $userDao;
   private $passwordController;
 
   public function __construct($conn, $BASE_URL, $authType, $name, $lastname, $email, $password, $password_confirmation)
   {
-    $this->type = $authType;
+    $this->authType = $authType;
     $this->name = $name;
     $this->lastname = $lastname;
     $this->email = $email;
     $this->password = $password;
     $this->password_confirmation = $password_confirmation;
+
     $this->userDao = new UserDAO($conn, $BASE_URL);
     $this->message = new Message($BASE_URL);
     $this->passwordController = new PasswordController();
@@ -37,9 +38,9 @@ class AuthController
 
   public function verifyFormsType()
   {
-    if ($this->type === "register") {
+    if ($this->authType === "register") {
       $this->verifyInput();
-    } else if ($this->type === "login") {
+    } else if ($this->authType === "login") {
       if ($this->userDao->authenticateUser($this->email, $this->password)) {
         $this->message->setMessage("Seja bem-vindo!", "success", "views/editprofile.php");
       } else {

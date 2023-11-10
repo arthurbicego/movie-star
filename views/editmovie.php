@@ -7,6 +7,7 @@ require_once($__ROOT__ . "/views/templates/header.php");
 require_once($__ROOT__ . "/models/User.php");
 require_once($__ROOT__ . "/models/dao/UserDAO.php");
 require_once($__ROOT__ . "/models/dao/MovieDAO.php");
+require_once($__ROOT__ . "/controllers/FormController.php");
 
 $user = new User();
 $userDao = new UserDao($conn, $BASE_URL);
@@ -43,8 +44,8 @@ if ($movie->image == "") {
       <div class="col-md-6 offset-md-1">
         <h1><?php echo $movie->title ?></h1>
         <p class="page-description">Altere os dados do filme no fomrulário abaixo:</p>
-        <form id="edit-movie-form" action="<?php echo $BASE_URL ?>controllers/MovieController.php" method="POST" enctype="multipart/form-data">
-          <input type="hidden" name="type" value="update">
+        <form id="edit-movie-form" action="<?php echo $BASE_URL ?>controllers/FormController.php" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="movieType" value="update">
           <input type="hidden" name="id" value="<?php echo $movie->id ?>">
           <div class="form-group">
             <label for="title">Título:</label>
@@ -81,7 +82,7 @@ if ($movie->image == "") {
         </form>
       </div>
       <div class="col-md-3">
-        <div class="movie-image-container" style="background-image: url('<?php echo $BASE_URL ?>resources/img/movies/<?php echo $movie->image ?>')"></div>
+        <div class="movie-image-container" style="background-image: url('<?php echo $BASE_URL ?>resources/movies/<?php echo $movie->image ?>')"></div>
       </div>
     </div>
   </div>

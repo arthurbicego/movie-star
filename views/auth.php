@@ -6,6 +6,7 @@ require_once($__ROOT__ . "/views/templates/header.php");
 require($__ROOT__ . "/controllers/AuthController.php");
 
 ?>
+
 <div id="main-container" class="container-fluid">
   <div class="col-md-12">
     <div class="row" id="auth-row">

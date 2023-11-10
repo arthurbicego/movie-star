@@ -15,14 +15,15 @@ class ImageController
     $this->message = new Message($BASE_URL);
   }
 
-  public function verifyImageUpload($stringType)
+  public function verifyImageUpload()
   {
     if (isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
-      return $this->verifyImageType($stringType);
+      var_dump($this->image);
+      return $this->verifyImageType();
     }
   }
 
-  private function verifyImageType($stringType)
+  private function verifyImageType()
   {
     if (in_array($this->image["type"], $this->imageTypes)) {
 
@@ -31,22 +32,22 @@ class ImageController
       } else {
         $this->imageFile = imagecreatefrompng($this->image["tmp_name"]);
       }
-      return $this->generateImageName($stringType);
+      return $this->generateImageName();
     } else {
       return $this->message->setMessage("Tipo inválido de imagem, insira .png ou .jpg!", "error", "back");
     }
   }
 
-  private function generateImageName($stringType)
+  private function generateImageName()
   {
     $imageName = bin2hex(random_bytes(60)) . ".jpg";
 
-    if ($stringType === "user") {
-      imagejpeg($this->imageFile, "./resources/img/users/" . $imageName, 100);
-      return $imageName;
-    } else if ($stringType === "movie") {
-      imagejpeg($this->imageFile, "./resources/img/movies/" . $imageName, 100);
-      return $imageName;
-    }
+    imagejpeg($this->imageFile, "./resources/users/" . $imageName, 100);
+    return $imageName;
+    // if ($stringType === "user") {
+    // } else if ($stringType === "movie") {
+    //   imagejpeg($this->imageFile, "./resources/movies/" . $imageName, 100);
+    //   return $imageName;
+    // }
   }
 }

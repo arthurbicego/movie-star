@@ -28,20 +28,20 @@ $userData = $userDao->verifyToken(false);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Movie Star</title>
-  <link rel="short icon" href="<?php echo $BASE_URL ?>resources/img/logo.png" />
+  <link rel="short icon" href="<?php echo $BASE_URL ?>resources/logo.png" />
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.css" integrity="sha512-drnvWxqfgcU6sLzAJttJv7LKdjWn0nxWCSbEAtxJ/YYaZMyoNLovG7lPqZRdhgL1gAUfa+V7tbin8y+2llC1cw==" crossorigin="anonymous" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
   <!-- CSS do projeto -->
-  <link rel="stylesheet" href="<?php echo $BASE_URL ?>resources/css/styles.css">
+  <link rel="stylesheet" href="<?php echo $BASE_URL ?>styles/styles.css">
 </head>
 
 <body>
   <header>
     <nav id="main-navbar" class="navbar navbar-expand-lg">
       <a href="<?php echo $BASE_URL ?>" class="navbar-brand">
-        <img src="<?php echo $BASE_URL ?>resources/img/logo.png" alt="Movie Star" id="logo">
+        <img src="<?php echo $BASE_URL ?>resources/logo.png" alt="Movie Star" id="logo">
         <span id="moviestar-title">Movie Star</span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">

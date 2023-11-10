@@ -2,14 +2,14 @@
 
 $__ROOT__ = dirname(__DIR__);
 
-require_once($__ROOT__ . "globals.php");
-require_once($__ROOT__ . "db.php");
-require_once($__ROOT__ . "models/Movie.php");
-require_once($__ROOT__ . "models/Review.php");
-require_once($__ROOT__ . "models/Message.php");
-require_once($__ROOT__ . "models/dao/UserDAO.php");
-require_once($__ROOT__ . "models/dao/MovieDAO.php");
-require_once($__ROOT__ . "models/dao/ReviewDAO.php");
+require_once($__ROOT__ . "/globals.php");
+require_once($__ROOT__ . "/database.php");
+require_once($__ROOT__ . "/models/Movie.php");
+require_once($__ROOT__ . "/models/Review.php");
+require_once($__ROOT__ . "/models/Message.php");
+require_once($__ROOT__ . "/models/dao/UserDAO.php");
+require_once($__ROOT__ . "/models/dao/MovieDAO.php");
+require_once($__ROOT__ . "/models/dao/ReviewDAO.php");
 
 class ReviewController
 {

@@ -69,7 +69,7 @@ $movieReviews = $reviewDao->getMoviesReview($movie->id);
       <p><?php echo $movie->description ?></p>
     </div>
     <div class="col-md-4">
-      <div class="movie-image-container" style="background-image: url('<?php echo $BASE_URL ?>resources/img/movies/<?php echo $movie->image ?>')"></div>
+      <div class="movie-image-container" style="background-image: url('<?php echo $BASE_URL ?>resources/movies/<?php echo $movie->image ?>')"></div>
     </div>
     <div class="offset-md-1 col-md-10" id="reviews-container">
       <h3 id="reviews-title">Avaliações:</h3>

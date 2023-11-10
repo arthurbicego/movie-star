@@ -24,6 +24,7 @@ $trailer = filter_input(INPUT_POST, "trailer");
 $category = filter_input(INPUT_POST, "category");
 $length = filter_input(INPUT_POST, "length");
 $id = filter_input(INPUT_POST, "id");
+$image = filter_input(INPUT_POST, "image");
 
 // UserController
 $userType = filter_input(INPUT_POST, "userType");
@@ -41,19 +42,19 @@ $review = filter_input(INPUT_POST, "review");
 $movies_id = filter_input(INPUT_POST, "movies_id");
 
 if ($authType) {
-
     $authController = new AuthController($conn, $BASE_URL, $authType, $name, $lastname, $email, $password, $password_confirmation);
     $authController->verifyFormsType();
+    $authType = false;
 } else if ($movieType) {
-
     $movieController = new MovieController($conn, $BASE_URL, $id, $movieType, $title, $description, $trailer, $category, $length);
     $movieController->verifyFormsType();
+    $movieType = false;
 } else if ($userType) {
-
-    $userController = new UserController($conn, $BASE_URL, $userType, $name, $lastname, $email, $bio, $password, $password_confirmation);
+    $userController = new UserController($conn, $BASE_URL, $userType, $name, $lastname, $email, $bio, $password, $password_confirmation, $image);
     $userController->verifyFormsType();
+    $userType = false;
 } else if ($reviewType) {
-
     $reviewController = new ReviewController($conn, $BASE_URL, $url, $reviewType, $rating, $rating, $movies_id);
     $reviewController->verifyFormsType();
+    $reviewType = false;
 }

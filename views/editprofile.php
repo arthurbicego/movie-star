@@ -41,7 +41,7 @@ if ($userData->image == "") {
           <input type="submit" class="btn card-btn" value="Alterar">
         </div>
         <div class="col-md-4">
-          <div id="profile-image-container" style="background-image: url('<?php echo $BASE_URL ?>resources/img/users/<?php echo $userData->image ?>')"></div>
+          <div id="profile-image-container" style="background-image: url('<?php echo $BASE_URL ?>resources/users/<?php echo $userData->image ?>')"></div>
           <div class="form-group">
             <label for="image">Foto:</label>
             <input type="file" class="form-control-file" name="image">

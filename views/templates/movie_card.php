@@ -6,7 +6,7 @@ if (empty($movie->image)) {
 
 ?>
 <div class="card movie-card">
-  <div class="card-img-top" style="background-image: url('<?php echo $BASE_URL ?>resources/img/movies/<?php echo $movie->image ?>')"></div>
+  <div class="card-img-top" style="background-image: url('<?php echo $BASE_URL ?>resources/movies/<?php echo $movie->image ?>')"></div>
   <div class="card-body">
     <p class="card-rating">
       <i class="fas fa-star"></i>
