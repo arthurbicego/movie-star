@@ -13,7 +13,7 @@ require_once($__ROOT__ . "/controllers/ImageController.php");
 class MovieController
 {
 
-  private $movieId;
+  private $id;
   private $type;
   private $title;
   private $description;
@@ -34,9 +34,9 @@ class MovieController
 
   private $dump;
 
-  public function __construct($conn, $BASE_URL, $movieId, $movieType, $title, $description, $trailer, $category, $length)
+  public function __construct($conn, $BASE_URL, $id, $movieType, $title, $description, $trailer, $category, $length)
   {
-    $this->movieId = $movieId;
+    $this->id = $id;
     $this->type = $movieType;
     $this->title = $title;
     $this->description = $description;
@@ -64,7 +64,7 @@ class MovieController
       $this->movieDao->create($this->movie);
     } else if ($this->type === "delete") {
       if ($this->verifyMovieFound() && $this->verifyMovieUser()) {
-        $this->movieDao->destroy($this->movieId);
+        $this->movieDao->destroy($this->id);
       } else {
         $this->message->setMessage("Informações inválidas!", "error", "index.php");
       }
@@ -100,8 +100,8 @@ class MovieController
 
   private function verifyMovieFound()
   {
-    if ($this->movieDao->findById($this->movieId)) {
-      $this->dump = $this->movieDao->findById($this->movieId);
+    if ($this->movieDao->findById($this->id)) {
+      $this->dump = $this->movieDao->findById($this->id);
       return true;
     } else {
       return false;

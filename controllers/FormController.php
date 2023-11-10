@@ -24,7 +24,6 @@ $trailer = filter_input(INPUT_POST, "trailer");
 $category = filter_input(INPUT_POST, "category");
 $length = filter_input(INPUT_POST, "length");
 $id = filter_input(INPUT_POST, "id");
-$image = filter_input(INPUT_POST, "image");
 
 // UserController
 $userType = filter_input(INPUT_POST, "userType");
@@ -50,7 +49,7 @@ if ($authType) {
     $movieController->verifyFormsType();
     $movieType = false;
 } else if ($userType) {
-    $userController = new UserController($conn, $BASE_URL, $userType, $name, $lastname, $email, $bio, $password, $password_confirmation, $image);
+    $userController = new UserController($conn, $BASE_URL, $userType, $name, $lastname, $email, $bio, $password, $password_confirmation);
     $userController->verifyFormsType();
     $userType = false;
 } else if ($reviewType) {

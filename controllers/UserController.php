@@ -22,7 +22,6 @@ class UserController
   private $lastname;
   private $email;
   private $bio;
-  private $image;
 
   private $message;
 
@@ -35,7 +34,7 @@ class UserController
 
   private $stringType;
 
-  public function __construct($conn, $BASE_URL, $userType, $name, $lastname, $email, $bio, $password, $password_confirmation, $image)
+  public function __construct($conn, $BASE_URL, $userType, $name, $lastname, $email, $bio, $password, $password_confirmation)
   {
 
     $this->user = new User();
@@ -49,12 +48,11 @@ class UserController
     $this->bio = $bio;
     $this->password = $password;
     $this->password_confirmation = $password_confirmation;
-    $this->image = $image;
 
     $this->message = new Message($BASE_URL);
     $this->finalPassword;
 
-    $this->imageController = new ImageController($this->image, $BASE_URL);
+    $this->imageController = new ImageController($BASE_URL);
     $this->passwordController = new PasswordController($conn, $BASE_URL);
 
     $this->stringType = "user";
@@ -64,7 +62,7 @@ class UserController
   {
     if ($this->type === "update") {
       $this->updateUserData();
-      $this->userData->image = $this->imageController->verifyImageUpload();
+      $this->userData->image = $this->imageController->verifyImageUpload($this->stringType);
       $this->userDao->update($this->userData);
     } else if ($this->type === "changepassword") {
       if ($this->password === $this->password_confirmation) {
