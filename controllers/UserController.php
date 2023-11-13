@@ -62,7 +62,11 @@ class UserController
   {
     if ($this->type === "update") {
       $this->updateUserData();
-      $this->userData->image = $this->imageController->verifyImageUpload($this->stringType);
+      if (isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
+        $this->userData->image = $this->imageController->verifyImageUpload($this->stringType);
+      } else {
+        $this->userData->image = $this->userDao->findById($this->id)->image;
+      }
       $this->userDao->update($this->userData);
     } else if ($this->type === "changepassword") {
       if ($this->password === $this->password_confirmation) {
