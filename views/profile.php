@@ -60,7 +60,7 @@ $userMovies = $movieDao->getMoviesByUserId($id);
         <h3>Filmes que enviou:</h3>
         <div class="movies-container">
           <?php foreach ($userMovies as $movie) : ?>
-            <?php require("views/templates/movie_card.php"); ?>
+            <?php require($__ROOT__ . "/views/templates/movie_card.php"); ?>
           <?php endforeach; ?>
           <?php if (count($userMovies) === 0) : ?>
             <p class="empty-list">O usuário ainda não enviou filmes.</p>

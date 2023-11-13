@@ -7,6 +7,7 @@ class Review
   public $rating;
   public $review;
   public $users_id;
+  public $user;
   public $movies_id;
 }
 

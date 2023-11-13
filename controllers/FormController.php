@@ -53,7 +53,7 @@ if ($authType) {
     $userController->verifyFormsType();
     $userType = false;
 } else if ($reviewType) {
-    $reviewController = new ReviewController($conn, $BASE_URL, $url, $reviewType, $rating, $rating, $movies_id);
+    $reviewController = new ReviewController($conn, $BASE_URL, $url, $reviewType, $rating, $review, $movies_id);
     $reviewController->verifyFormsType();
     $reviewType = false;
 }

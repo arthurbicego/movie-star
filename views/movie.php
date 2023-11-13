@@ -7,7 +7,10 @@ require_once($__ROOT__ . "/views/templates/header.php");
 require_once($__ROOT__ . "/models/Movie.php");
 require_once($__ROOT__ . "/models/dao/MovieDAO.php");
 require_once($__ROOT__ . "/models/dao/ReviewDAO.php");
+require_once($__ROOT__ . "/models/User.php");
 require_once($__ROOT__ . "/controllers/FormController.php");
+
+// $user = new User();
 
 // Pegar o id do filme
 $id = filter_input(INPUT_GET, "id");
@@ -107,7 +110,7 @@ $movieReviews = $reviewDao->getMoviesReview($movie->id);
       <?php endif; ?>
       <!-- Comentários -->
       <?php foreach ($movieReviews as $review) : ?>
-        <?php require("views/templates/user_review.php"); ?>
+        <?php require($__ROOT__ . "/views/templates/user_review.php"); ?>
       <?php endforeach; ?>
       <?php if (count($movieReviews) == 0) : ?>
         <p class="empty-list">Não há comentários para este filme ainda...</p>

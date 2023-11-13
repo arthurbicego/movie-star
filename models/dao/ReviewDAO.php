@@ -5,6 +5,7 @@ $__ROOT__ = dirname(dirname(__DIR__));
 require_once($__ROOT__ . "/models/Review.php");
 require_once($__ROOT__ . "/models/Message.php");
 
+require_once($__ROOT__ . "/models/dao/MovieDAO.php");
 require_once($__ROOT__ . "/models/dao/UserDAO.php");
 
 class ReviewDao implements ReviewDAOInterface
@@ -77,9 +78,9 @@ class ReviewDao implements ReviewDAOInterface
         $reviewObject = $this->buildReview($review);
 
         // Chamar dados do usuário
-        // $user = $userDao->findById($reviewObject->users_id);
+        $user = $userDao->findById($reviewObject->users_id);
 
-        // $reviewObject->users_id = $user;
+        $reviewObject->user = $user;
 
         $reviews[] = $reviewObject;
       }

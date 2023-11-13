@@ -3,8 +3,13 @@
 $__ROOT__ = dirname(dirname(__DIR__));
 
 require_once($__ROOT__ . "/models/User.php");
-
 $userModel = new User();
+
+require_once($__ROOT__ . "/views/templates/header.php");
+require_once($__ROOT__ . "/models/DAO/ReviewDAO.php");
+
+// DAO dos filmes
+$userDao = new UserDAO($conn, $BASE_URL);
 
 $fullName = $userModel->getFullName($review->user);
 
