@@ -202,7 +202,7 @@ class MovieDAO implements MovieDAOInterface
         category = :category,
         trailer = :trailer,
         length = :length
-        WHERE id = :id      
+        WHERE id = :id
       ");
 
     $stmt->bindParam(":title", $movie->title);

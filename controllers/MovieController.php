@@ -36,6 +36,15 @@ class MovieController
 
   public function __construct($conn, $BASE_URL, $id, $movieType, $title, $description, $trailer, $category, $length)
   {
+    $this->message = new Message($BASE_URL);
+    $this->imageController = new ImageController($BASE_URL);
+
+    $this->movie = new Movie();
+    $this->movieDao = new MovieDAO($conn, $BASE_URL);
+
+    $this->userDao = new UserDAO($conn, $BASE_URL);
+    $this->userData = $this->userDao->verifyToken();
+
     $this->id = $id;
     $this->type = $movieType;
     $this->title = $title;
@@ -43,23 +52,15 @@ class MovieController
     $this->trailer = $trailer;
     $this->category = $category;
     $this->length = $length;
+    $this->movie->users_id = $this->userData->id;
 
-    $this->movie = new Movie();
-    $this->message = new Message($BASE_URL);
-
-    $this->userDao = new UserDAO($conn, $BASE_URL);
-    $this->userData = $this->userDao->verifyToken();
-    $this->movieDao = new MovieDAO($conn, $BASE_URL);
-
-    $this->imageController = new ImageController($BASE_URL);
     $this->stringType = "movie";
   }
 
 
   public function verifyFormsType()
   {
-    if ($this->type === "create") {
-      $this->verifyInput();
+    if ($this->type === "create" && $this->verifyInput()) {
       $this->movie->image = $this->imageController->verifyImageUpload($this->stringType);
       $this->movieDao->create($this->movie);
     } else if ($this->type === "delete") {
@@ -68,10 +69,13 @@ class MovieController
       } else {
         $this->message->setMessage("Informações inválidas!", "error", "index.php");
       }
-    } else if ($this->type === "update") {
+    } else if ($this->type === "update" && $this->verifyInput()) {
       if ($this->verifyMovieFound() && $this->verifyMovieUser()) {
-        $this->verifyInput();
-        $this->imageController->verifyImageUpload($this->stringType);
+        if (isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
+          $this->movie->image = $this->imageController->verifyImageUpload($this->stringType);
+        } else {
+          $this->movie->image = $this->movieDao->findById($this->id)->image;
+        }
         $this->movieDao->update($this->movie);
       } else {
         $this->message->setMessage("Informações inválidas!", "error", "index.php");
@@ -84,15 +88,17 @@ class MovieController
   private function verifyInput()
   {
     if (!empty($this->title) && !empty($this->description) && !empty($this->category)) {
+      $this->movie->id = $this->id;
       $this->movie->title = $this->title;
       $this->movie->description = $this->description;
       $this->movie->trailer = $this->trailer;
       $this->movie->category = $this->category;
       $this->movie->length = $this->length;
-      // I need to understand where this userData id comes from
       $this->movie->users_id = $this->userData->id;
+      return true;
     } else {
       $this->message->setMessage("Você precisa adicionar pelo menos: título, descrição e categoria!", "error", "back");
+      return false;
     }
   }
 

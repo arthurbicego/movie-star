@@ -18,7 +18,6 @@ class ImageController
   public function verifyImageUpload($stringType)
   {
     if (isset($_FILES["image"]) && !empty($_FILES["image"]["tmp_name"])) {
-      var_dump($this->image);
       return $this->verifyImageType($stringType);
     }
   }

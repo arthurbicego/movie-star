@@ -1,3 +1,11 @@
+<?php
+
+$__ROOT__ = dirname(dirname(__DIR__));
+
+require_once($__ROOT__ . "/globals.php");
+
+?>
+
 <footer id="footer">
   <div id="social-container">
     <ul>
@@ -14,9 +22,9 @@
   </div>
   <div id="footer-links-container">
     <ul>
-      <li><a href="#">Adicionar filme</a></li>
-      <li><a href="#">Adicionar crítica</a></li>
-      <li><a href="#">Entrar / Registrar</a></li>
+      <li><a href="<?php echo $BASE_URL ?>views/newmovie.php">Adicionar filme</a></li>
+      <li><a href="<?php echo $BASE_URL ?>views/dashboard.php">Meu filmes</a></li>
+      <li><a href="<?php echo $BASE_URL ?>views/auth.php">Entrar / Registrar</a></li>
     </ul>
   </div>
   <p>&copy; 2023-<?php echo date("Y") ?> | <a class="text-decoration-none" href="https://arthurbicego.com/">Arthur Bicego Quintaneira</a></p>
