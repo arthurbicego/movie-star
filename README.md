@@ -130,8 +130,6 @@ FOREIGN KEY (movies_id) REFERENCES movies(id)
 
 My biggest challenges were putting into practice the integration between PHP pages together with object orientation. Because at times, refactoring the code to further separate responsibilities brought new problems to be solved.
 
-Flexbox Centering Property:
-
 ### Continued development
 
 There is still a lot of opportunity for improvement the project. Regarding the code, it could be even more organized and clean, there is still room to refactor and reduce some "if" loops.
