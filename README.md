@@ -1,8 +1,8 @@
 # Portfolio - Movie Star
 
-Technologies: Vanilla PHP + MySQL + Bootstrap.
+Movie Star: Create, read, update, delete your movies. Share your reviews on other people's films. This is a portfolio project whose main focus is to consolidate learning and ideas.
 
-This is a portfolio project whose main focus is to consolidate learning and ideas.
+Technologies: Technologies: Vanilla PHP + MySQL + Bootstrap.
 
 ## WARNING
 
